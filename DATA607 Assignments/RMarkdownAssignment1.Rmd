@@ -1,0 +1,73 @@
+---
+title: "Mushroom Data Transformation"
+author: "Venkatesan Parkunan"
+date: "9/3/2018"
+output: 
+    html_document:
+    theme: lumen
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This assignment for DATA 607 course within the CUNY School of Professional Studies MS Data Science program is to transform semi-unstructured data into a structured data using R methods and functions:
+
+#Loading dplyr package
+
+```{r include=FALSE}
+library(readr)
+library(dplyr)
+library(plyr)
+mushroom <- read_csv("https://raw.githubusercontent.com/vepark/Datasets/mushroom/mushroom.txt", col_names = FALSE)
+mushroom
+```
+
+#Copying the mushroom dataframe to df dataframe 
+```{r}
+df <- mushroom 
+```
+
+#Selecting only specific columns to work with and writing it to df1 dataframe
+``` {r}
+df1 <- df[c("X1","X2","X3","X4")]
+```
+#Renaming the df1 dataframe columns to the right column names
+```{r}
+df2 <- rename(df1, c("X1"="Classes","X2"="Cap_Shape",	"X3"="Cap_Surface",	"X4"="Cap_color"))
+df2  
+```
+#Changing the values of the dataframe for the above variables
+```{r}
+df2$Classes[df2$Classes == "e"] <- "Edible"
+df2$Classes[df2$Classes == "p"] <- "Poisonous"
+
+df2$Cap_Shape[df2$Cap_Shape == "b"] <- "Bell"
+df2$Cap_Shape[df2$Cap_Shape == "c"] <- "Conical"
+df2$Cap_Shape[df2$Cap_Shape == "x"] <- "Convex"
+df2$Cap_Shape[df2$Cap_Shape == "f"] <- "Flat"
+df2$Cap_Shape[df2$Cap_Shape == "k"] <- "Knobbed"
+df2$Cap_Shape[df2$Cap_Shape == "s"] <- "Sunken"
+
+df2$Cap_Surface[df2$Cap_Surface == "f"] <- "Fibrous"
+df2$Cap_Surface[df2$Cap_Surface == "g"] <- "Grooves"
+df2$Cap_Surface[df2$Cap_Surface == "y"] <- "Scaly"
+df2$Cap_Surface[df2$Cap_Surface == "s"] <- "Smooth"
+
+df2$Cap_color[df2$Cap_color == "n"] <- "Brown"
+df2$Cap_color[df2$Cap_color == "b"] <- "Buff"
+df2$Cap_color[df2$Cap_color == "c"] <- "Cinnamon"
+df2$Cap_color[df2$Cap_color == "g"] <- "Gray"
+df2$Cap_color[df2$Cap_color == "r"] <- "Green"
+df2$Cap_color[df2$Cap_color == "p"] <- "Pink"
+df2$Cap_color[df2$Cap_color == "u"] <- "Purple"
+df2$Cap_color[df2$Cap_color == "e"] <- "Red"
+df2$Cap_color[df2$Cap_color == "w"] <- "White"
+df2$Cap_color[df2$Cap_color == "y"] <- "Yellow"
+
+FinalMushroomData <- df2
+FinalMushroomData
+```
